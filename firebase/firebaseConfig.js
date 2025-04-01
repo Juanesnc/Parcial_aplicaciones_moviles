@@ -5,13 +5,13 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBJXezfeQQzciAfB5Ir5LO-jF2LHUeNbyc",
-  authDomain: "curso-vue-edb1c.firebaseapp.com",
-  projectId: "curso-vue-edb1c",
-  storageBucket: "curso-vue-edb1c.firebasestorage.app",
-  messagingSenderId: "113743827410",
-  appId: "1:113743827410:web:9ef1fff7c5607be610380b",
-  measurementId: "G-P8GW93N4X9"
+  apiKey: "AIzaSyDa1NHRNOTEm552aMbmx-pKgtJp9m_qbtg",
+  authDomain: "react-native-af78e.firebaseapp.com",
+  projectId: "react-native-af78e",
+  storageBucket: "react-native-af78e.firebasestorage.app",
+  messagingSenderId: "250277254654",
+  appId: "1:250277254654:web:06f87c99193e863e8f9caf",
+  measurementId: "G-KRCNG8S6DT"
 };
 
 // Inicializa la app y los servicios

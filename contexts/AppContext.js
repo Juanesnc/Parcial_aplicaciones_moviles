@@ -1,5 +1,6 @@
 // src/contexts/AppContext.js
 import React, { useState } from 'react';
+import { loginUser, registerUser } from '../firebase/firebaseConfig';
 
 // Datos iniciales (puedes agregar recetas si lo deseas)
 const initialRecipes = [
@@ -153,41 +154,45 @@ export const AppContext = React.createContext();
 
 export function AppProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [recipes, setRecipes] = useState(initialRecipes);
   const [favorites, setFavorites] = useState([]);
   const [planner, setPlanner] = useState([]);
   const [comments, setComments] = useState({});
   const [profileModalVisible, setProfileModalVisible] = useState(false);
 
-  // Funciones de autenticación
-  const signIn = (username, password) => {
-    const found = registeredUsers.find(u => u.username === username && u.password === password);
-    if (found) {
-      setUser({ username, email: found.email });
-    } else {
+  // Función para iniciar sesión usando Firebase Authentication
+  const signIn = async (email, password) => {
+    try {
+      const userData = await loginUser(email, password);
+      setUser(userData);
+      console.log("Usuario logueado:", userData);
+    } catch (error) {
       alert('Credenciales inválidas');
+      console.error("Error en inicio de sesión:", error);
     }
   };
 
-  const signUp = (username, email, password) => {
+  // Función para registrar usuario usando Firebase Authentication
+  const signUp = async (username, email, password) => {
     if (!username || !email || !password) {
       alert('Por favor completa todos los campos');
       return;
     }
-    const exists = registeredUsers.find(u => u.username === username);
-    if (exists) {
-      alert('El usuario ya existe');
-      return;
+    try {
+      const userData = await registerUser(email, password);
+      // Puedes agregar el username manualmente al objeto del usuario
+      setUser({ ...userData, username });
+      console.log("Usuario registrado:", userData);
+    } catch (error) {
+      alert('Error al registrar el usuario: ' + error.message);
+      console.error("Error en registro:", error);
     }
-    const newUser = { username, email, password };
-    setRegisteredUsers([...registeredUsers, newUser]);
-    setUser({ username, email });
   };
 
   const signOut = () => {
     setUser(null);
   };
+
 
   // Funciones para favoritos
   const addFavorite = (recipe) => setFavorites([...favorites, recipe]);

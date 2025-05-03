@@ -2,7 +2,6 @@
 import React, { useContext, useState, useLayoutEffect, useEffect } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { AppContext } from '../contexts/AppContext';
-import { fetchEuropeanCountries } from '../firebase/firebaseConfig';
 import styles from '../styles/styles';
 
 export default function HomeScreen({ navigation }) {
@@ -11,10 +10,6 @@ export default function HomeScreen({ navigation }) {
   const filteredVehicles  = vehicles.filter(vehicle =>
     vehicle.name.toLowerCase().includes(filter.toLowerCase())
   );
-
-  useEffect(() => {
-    fetchEuropeanCountries();
-  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({

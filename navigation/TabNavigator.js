@@ -21,7 +21,7 @@ export default function TabNavigator() {
           headerShown: false,
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Favoritos"
         component={FavoritesStackScreen}
         options={{
@@ -29,20 +29,12 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => (<Text style={{ color, fontSize: size }}>❤️</Text>),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Planificador"
         component={PlannerScreen}
         options={{
           tabBarLabel: 'Planificador',
           tabBarIcon: ({ color, size }) => (<Text style={{ color, fontSize: size }}>📅</Text>),
-        }}
-      />
-      <Tab.Screen
-        name="CrearReceta"
-        component={CreateVehicleScreen}
-        options={{
-          tabBarLabel: 'Crear',
-          tabBarIcon: ({ color, size }) => (<Text style={{ color, fontSize: size }}>✍️</Text>),
         }}
       /> */}
     </Tab.Navigator>

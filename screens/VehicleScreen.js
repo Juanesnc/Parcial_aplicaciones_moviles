@@ -14,7 +14,7 @@ export default function VehicleScreen({ route, navigation }) {
     addToPlanner,
     removeFromPlanner
   } = useContext(AppContext);
-  const isFavorite = favorites.find(fav => fav.id === item.id);
+  const isFavorite = favorites.find(fav => fav?.id === item.id);
   const inPlanner = planner.find(plan => plan.id === item.id);
 
   const handleToggleFavorite = () => {
@@ -57,10 +57,12 @@ export default function VehicleScreen({ route, navigation }) {
           <Text style={styles.detailsText}>{item.details}</Text>
         </View>
         <View style={styles.buttonGroup}>
-          {/* <TouchableOpacity style={styles.smallButton} onPress={handleToggleFavorite}>
-            <Text style={styles.buttonText}>{isFavorite ? 'Quitar Favorito' : 'Agregar Favorito'}</Text>
+          <TouchableOpacity style={styles.buttonComentarios} onPress={handleToggleFavorite}>
+            <Text style={styles.buttonComentariosText}>
+              {isFavorite ? 'Quitar Favorito' : 'Agregar Favorito'}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.smallButton} onPress={handleTogglePlanner}>
+          {/* <TouchableOpacity style={styles.smallButton} onPress={handleTogglePlanner}>
             <Text style={styles.buttonText}>{inPlanner ? 'Quitar del Plan' : 'Agregar al Plan'}</Text>
           </TouchableOpacity> */}
           <TouchableOpacity

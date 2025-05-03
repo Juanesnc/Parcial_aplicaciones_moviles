@@ -1,8 +1,9 @@
 // src/contexts/AppContext.js
 import React, { useState } from 'react';
-import { ref, set, get } from 'firebase/database';
+import { ref, set, remove, get } from 'firebase/database';
 import { db, loginUser, registerUser, fetchVehiclesFromDB, addCommentToDB, fetchCommentsFromDB } from '../firebase/firebaseConfig';
 import { useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 
 export const AppContext = React.createContext();
 
@@ -17,7 +18,11 @@ export function AppProvider({ children }) {
   // Función para iniciar sesión usando Firebase Authentication
   const signUp = async (username, email, password) => {
     if (!username || !email || !password) {
-      alert('Por favor completa todos los campos');
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Por favor completa todos los campos'
+      });
       return;
     }
     try {
@@ -25,6 +30,7 @@ export function AppProvider({ children }) {
 
       // Guardar el username en Realtime Database usando el UID
       await set(ref(db, 'users/' + userData.uid), {
+        id: userData.uid,
         username: username,
         email: email,
       });
@@ -33,8 +39,11 @@ export function AppProvider({ children }) {
       setUser({ ...userData, username });
 
     } catch (error) {
-      alert('Error al registrar el usuario: ' + error.message);
-      console.error("Error en registro:", error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Error al registrar el usuario: '+ error.message
+      });
     }
   };
 
@@ -55,13 +64,18 @@ export function AppProvider({ children }) {
       fetchVehiclesFromDB((firebaseVehicles) => {
         setVehicles(firebaseVehicles);
       });
+      loadFavorites(userData.uid);
     } catch (error) {
-      alert('Credenciales inválidas');
-      console.error("Error en inicio de sesión:", error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Credenciales inválidas'
+      });
     }
   };
 
   const signOut = () => {
+    setFavorites([]);
     setUser(null);
   };
 
@@ -73,15 +87,34 @@ export function AppProvider({ children }) {
 
 
   // Funciones para favoritos
-  const addFavorite = (vehicle) => setFavorites([...favorites, vehicle]);
-  const removeFavorite = (vehicle) => setFavorites(favorites.filter(fav => fav.id !== vehicle.id));
+  const addFavorite = async (vehicle) => {
+    if (!user) return;
+    const favRef = ref(db, `favorites/${user.uid}/${vehicle.id}`);
+    await set(favRef, vehicle);
+    setFavorites((prev) => [...prev, vehicle]);
+  };
+  
+  const removeFavorite = async (vehicle) => {
+    if (!user) return;
+    const favRef = ref(db, `favorites/${user.uid}/${vehicle.id}`);
+    await remove(favRef);
+    setFavorites((prev) => prev.filter((fav) => fav.id !== vehicle.id));
+  };
+
+  const loadFavorites = async(uid) => {
+    if (!uid) return;
+    const favRef = await get(ref(db, 'favorites/' + uid));
+    const favList = favRef.val();
+    if(favList){
+      setFavorites(favList);
+    }
+  };
 
   // Funciones para planificador
   const addToPlanner = (vehicle) => setPlanner([...planner, vehicle]);
   const removeFromPlanner = (vehicle) => setPlanner(planner.filter(plan => plan.id !== vehicle.id));
 
   const addComment = (vehicleId, commentText) => {
-    console.log(commentText.text);
     const comment = {
       text: commentText.text,
       username: user?.username || 'Anónimo',
@@ -105,7 +138,6 @@ export function AppProvider({ children }) {
     });
   };
 
-  // Función para crear recetas
   const addVehicle = (newVehicle) => setVehicles([...vehicles, newVehicle]);
 
   // Funciones para mostrar/ocultar modal de perfil
@@ -136,6 +168,7 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider value={appContextValue}>
       {children}
+      <Toast />
     </AppContext.Provider>
   );
 }

@@ -1,8 +1,9 @@
 // src/screens/CommentsScreen.js
 import React, { useContext, useState, useEffect } from 'react';
-import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppContext } from '../contexts/AppContext';
 import styles from '../styles/styles';
+import Toast from 'react-native-toast-message';
 
 export default function CommentsScreen({ route }) {
   const { vehicleId, vehicleName } = route.params;
@@ -18,7 +19,11 @@ export default function CommentsScreen({ route }) {
 
   const handleAddComment = () => {
     if (newComment.trim() === '') {
-      Alert.alert('Error', 'Ingresa un comentario');
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Ingresa un comentario'
+      });
       return;
     }
     // Crea el objeto comentario
@@ -61,6 +66,7 @@ export default function CommentsScreen({ route }) {
       <TouchableOpacity style={styles.button} onPress={handleAddComment}>
         <Text style={styles.buttonText}>Agregar Comentario</Text>
       </TouchableOpacity>
+      <Toast />
     </View>
   );
 }

@@ -10,7 +10,7 @@ export default function FavoritesScreen({ navigation }) {
     <ScrollView style={styles.container}>
       {favorites.length === 0 ? (
         <Text style={{ textAlign: 'center' }}>
-          No tienes recetas favoritas.
+          No tienes vehículos favoritos.
         </Text>
       ) : (
         <View style={styles.foodGrid}>

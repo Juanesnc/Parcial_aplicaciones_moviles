@@ -41,9 +41,7 @@ const auth = getAuth(app);
 const connectionRef = ref(db, ".info/connected");
 onValue(connectionRef, (snapshot) => {
   if (snapshot.val() === true) {
-    console.log("Conectado a Firebase");
   } else {
-    console.log("Desconectado de Firebase");
   }
 });
 

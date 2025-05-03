@@ -9,7 +9,7 @@ export default function FavoritesScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       {favorites.length === 0 ? (
-        <Text style={{ textAlign: 'center', color: '#7D4C00' }}>
+        <Text style={{ textAlign: 'center' }}>
           No tienes recetas favoritas.
         </Text>
       ) : (
@@ -18,7 +18,7 @@ export default function FavoritesScreen({ navigation }) {
             <TouchableOpacity
               key={item.id}
               style={styles.foodCard}
-              onPress={() => navigation.navigate('Recipe', { item })}
+              onPress={() => navigation.navigate('Vehicle', { item })}
             >
               <Image source={{ uri: item.image }} style={styles.cardImage} resizeMode="cover" />
               <View style={styles.cardContent}>

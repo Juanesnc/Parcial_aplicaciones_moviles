@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStackScreen from './HomeStack';
 import FavoritesStackScreen from './FavoritesStack';
 import PlannerScreen from '../screens/PlannerScreen';
-import CreateRecipeScreen from '../screens/CreateRecipeScreen';
+import CreateVehicleScreen from '../screens/CreateVehicleScreen';
 import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -21,7 +21,7 @@ export default function TabNavigator() {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Favoritos"
         component={FavoritesStackScreen}
         options={{
@@ -39,12 +39,12 @@ export default function TabNavigator() {
       />
       <Tab.Screen
         name="CrearReceta"
-        component={CreateRecipeScreen}
+        component={CreateVehicleScreen}
         options={{
           tabBarLabel: 'Crear',
           tabBarIcon: ({ color, size }) => (<Text style={{ color, fontSize: size }}>✍️</Text>),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }

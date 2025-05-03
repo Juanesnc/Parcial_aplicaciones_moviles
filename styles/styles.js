@@ -2,39 +2,40 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+
   container: {
     flex: 1,
-    backgroundColor: '#FFF3E0',
+    backgroundColor: '#F5F6F7', 
     padding: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 15,
-    color: '#F57C00',
+    marginVertical: 20,
+    color: '#0D1B2A', 
   },
-  foodGrid: {
+  vehicleGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     paddingHorizontal: 5,
   },
-  foodCard: {
+  vehicleCard: {
     width: '48%',
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
     marginBottom: 15,
     overflow: 'hidden',
-    shadowColor: '#7D4C00',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
-    shadowRadius: 8,
+    shadowRadius: 5,
     elevation: 3,
   },
   cardImage: {
     width: '100%',
-    height: 180,
+    height: 150,
   },
   cardContent: {
     padding: 15,
@@ -43,131 +44,95 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#4E342E',
+    color: '#0D1B2A',
   },
-  cardDescription: {
-    fontSize: 12,
-    color: '#7D4C00',
+  cardDetail: {
+    fontSize: 14,
+    color: '#3E4C59',
   },
-  recipeContainer: {
+  vehicleDetailsContainer: {
     flex: 1,
-    backgroundColor: '#FFF3E0',
+    backgroundColor: '#F5F6F7',
   },
   featuredImage: {
     width: '100%',
-    height: 300,
+    height: 250,
   },
-  recipeContent: {
+  detailsContent: {
     padding: 20,
   },
-  recipeTitle: {
-    fontSize: 24,
+  detailsTitle: {
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#F57C00',
-    marginBottom: 20,
+    color: '#0D1B2A',
+    marginBottom: 15,
     textAlign: 'center'
   },
-  recipeRegion: {
+  detailsText: {
     fontSize: 16,
-    color: '#4E342E',
+    color: '#3E4C59',
     marginBottom: 10,
-    textAlign: 'center'
   },
-  section: {
+  featureSection: {
     marginVertical: 10,
   },
-  sectionTitle: {
+  featureTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#4E342E',
+    color: '#0D1B2A',
     marginBottom: 10,
   },
-  ingredientList: {
+  featureList: {
     marginLeft: 15,
   },
-  ingredientItem: {
+  featureItem: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 4,
   },
-  ingredientText: {
+  featureText: {
     marginLeft: 8,
     fontSize: 14,
-    color: '#4E342E',
-  },
-  stepContainer: {
-    marginLeft: 20,
-  },
-  stepItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginVertical: 8,
-  },
-  stepCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#F57C00',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
-  stepNumber: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  stepText: {
-    flex: 1,
-    fontSize: 14,
-    color: '#4E342E',
-    lineHeight: 20,
+    color: '#3E4C59',
   },
   authContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#FFF3E0',
+    backgroundColor: '#F5F6F7',
   },
   authTitle: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#F57C00',
+    color: '#0D1B2A',
   },
   input: {
     width: '100%',
     height: 50,
-    borderColor: '#F57C00',
+    borderColor: '#0D1B2A',
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 15,
     backgroundColor: '#fff',
-    color: '#4E342E',
+    color: '#3E4C59',
   },
   button: {
-    backgroundColor: '#F57C00',
+    backgroundColor: '#0D1B2A',
     padding: 15,
     borderRadius: 8,
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
   },
-  smallButton: {
-    backgroundColor: '#F57C00',
-    padding: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginVertical: 5,
-  },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
   },
   linkText: {
-    color: '#F57C00',
+    color: '#0D1B2A',
     marginTop: 10,
     textDecorationLine: 'underline',
   },
@@ -185,56 +150,76 @@ export default StyleSheet.create({
   modalContent: {
     width: '80%',
     backgroundColor: '#fff',
-    borderRadius: 12,
+    borderRadius: 10,
     padding: 20,
     alignItems: 'center',
-    shadowColor: '#7D4C00',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 5,
     elevation: 5,
   },
   profileTitle: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#F57C00',
+    color: '#0D1B2A',
   },
   profileText: {
     fontSize: 18,
     marginBottom: 20,
-    color: '#4E342E',
+    color: '#3E4C59',
   },
   closeButton: {
     marginTop: 10,
   },
   closeButtonText: {
-    color: '#F57C00',
+    color: '#0D1B2A',
     fontSize: 16,
     textDecorationLine: 'underline',
   },
+  buttonComentarios: {
+    backgroundColor: '#3498db',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  buttonComentariosText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
   commentItem: {
-    padding: 10,
-    borderBottomColor: '#F57C00',
-    borderBottomWidth: 1,
-  },
-  commentUser: {
-    fontWeight: 'bold',
-    color: '#4E342E',
-  },
-  commentText: {
-    marginLeft: 5,
-    color: '#4E342E',
-  },
-  plannerItem: {
+    marginBottom: 10,
     padding: 10,
     backgroundColor: '#fff',
-    marginVertical: 5,
-    borderRadius: 8,
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
-  buttonGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
+  commentUser: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#0D1B2A',
+  },
+  commentText: {
+    fontSize: 14,
+    color: '#3E4C59',
+    marginTop: 5,
+  },
+  commentTimestamp: {
+    fontSize: 12,
+    color: '#888',
+    marginTop: 5,
   },
 });

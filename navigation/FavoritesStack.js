@@ -2,7 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import FavoritesScreen from '../screens/FavoritesScreen';
-import RecipeScreen from '../screens/RecipeScreen';
+import VehicleScreen from '../screens/VehicleScreen';
 
 const FavoritesStack = createStackNavigator();
 
@@ -15,8 +15,8 @@ export default function FavoritesStackScreen() {
         options={{ headerShown: false }}
       />
       <FavoritesStack.Screen
-        name="Recipe"
-        component={RecipeScreen}
+        name="Vehicle"
+        component={VehicleScreen}
         options={({ route }) => ({ title: route.params.item.name, headerTitleAlign: 'center' })}
       />
     </FavoritesStack.Navigator>

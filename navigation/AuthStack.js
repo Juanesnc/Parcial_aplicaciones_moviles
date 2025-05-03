@@ -12,7 +12,7 @@ export default function AuthStackScreen() {
       initialRouteName="Login"
       screenOptions={{
         presentation: 'modal',
-        headerStyle: { backgroundColor: '#F57C00' },
+        headerStyle: { backgroundColor: '#0D1B2A' },
         headerTintColor: '#fff',
       }}
     >

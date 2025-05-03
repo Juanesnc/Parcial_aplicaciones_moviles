@@ -14,25 +14,26 @@ export default function LoginScreen({ navigation }) {
       <Text style={styles.authTitle}>Iniciar Sesión</Text>
       <TextInput
         style={styles.input}
-        placeholder="Correo"
-        placeholderTextColor="#7D4C00"
+        placeholder="Correo electrónico"
+        placeholderTextColor="#3E4C59"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
-        placeholderTextColor="#7D4C00"
+        placeholderTextColor="#3E4C59"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
       <TouchableOpacity style={styles.button} onPress={() => signIn(username, password)}>
-        <Text style={styles.buttonText}>Ingresar</Text>
+        <Text style={styles.buttonText}>Ingresar al sistema</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.linkText}>¿No tienes cuenta? Regístrate</Text>
+        <Text style={styles.linkText}>¿No tienes cuenta? Regístrate aquí</Text>
       </TouchableOpacity>
+
     </View>
   );
 }

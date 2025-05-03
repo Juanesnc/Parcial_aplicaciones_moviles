@@ -6,10 +6,10 @@ import { fetchEuropeanCountries } from '../firebase/firebaseConfig';
 import styles from '../styles/styles';
 
 export default function HomeScreen({ navigation }) {
-  const { recipes, openProfileModal } = useContext(AppContext);
+  const { vehicles, openProfileModal } = useContext(AppContext);
   const [filter, setFilter] = useState('');
-  const filteredRecipes = recipes.filter(recipe =>
-    recipe.name.toLowerCase().includes(filter.toLowerCase())
+  const filteredVehicles  = vehicles.filter(vehicle =>
+    vehicle.name.toLowerCase().includes(filter.toLowerCase())
   );
 
   useEffect(() => {
@@ -23,32 +23,36 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.headerButton}>Perfil</Text>
         </TouchableOpacity>
       ),
-      headerStyle: { backgroundColor: '#F57C00' },
+      headerStyle: { backgroundColor: '#0D1B2A' },
       headerTintColor: '#fff',
     });
   }, [navigation, openProfileModal]);
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Delicias K</Text>
+      {/* Título actualizado */}
+      <Text style={styles.title}>Concesionaria K</Text>
       <TextInput
         style={[styles.input, { marginBottom: 15 }]}
-        placeholder="Filtrar recetas..."
-        placeholderTextColor="#7D4C00"
+        placeholder="Buscar vehículo..."
+        placeholderTextColor="#3E4C59"
         value={filter}
         onChangeText={setFilter}
       />
-      <View style={styles.foodGrid}>
-        {filteredRecipes.map((item) => (
+      {/* Usamos estilos adaptados a la nueva temática: vehicleGrid y vehicleCard */}
+      <View style={styles.vehicleGrid}>
+        {filteredVehicles.map((item) => (
           <TouchableOpacity
             key={item.id}
-            style={styles.foodCard}
-            onPress={() => navigation.navigate('Recipe', { item })}
+            style={styles.vehicleCard}
+            // Navegamos a la pantalla de detalles del vehículo (VehicleScreen)
+            onPress={() => navigation.navigate('VehicleDetails', { item })}
           >
             <Image source={{ uri: item.image }} style={styles.cardImage} resizeMode="cover" />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{item.name}</Text>
-              <Text style={styles.cardDescription}>{item.description}</Text>
+              {/* Mostramos, por ejemplo, el año o algún detalle relevante */}
+              <Text style={styles.cardDetail}>Año: {item.year}</Text>
             </View>
           </TouchableOpacity>
         ))}

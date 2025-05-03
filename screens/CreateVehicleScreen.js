@@ -1,32 +1,32 @@
-// src/screens/CreateRecipeScreen.js
+// src/screens/CreateVehicleScreen.js
 import React, { useContext, useState } from 'react';
 import { Alert, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 import { AppContext } from '../contexts/AppContext';
 import styles from '../styles/styles';
 
-export default function CreateRecipeScreen({ navigation }) {
-  const { addRecipe, recipes } = useContext(AppContext);
+export default function CreateVehicleScreen({ navigation }) {
+  const { addVehicle, vehicles } = useContext(AppContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [ingredientsText, setIngredientsText] = useState('');
-  const [recipeText, setRecipeText] = useState('');
+  const [vehicleText, setVehicleText] = useState('');
 
-  const handleCreateRecipe = () => {
-    if (!name || !description || !image || !ingredientsText || !recipeText) {
+  const handleCreateVehicle = () => {
+    if (!name || !description || !image || !ingredientsText || !vehicleText) {
       Alert.alert('Error', 'Completa todos los campos');
       return;
     }
-    const newRecipe = {
-      id: (recipes.length + 1).toString(),
+    const newVehicle = {
+      id: (vehicles.length + 1).toString(),
       name,
       description,
       image,
       ingredients: ingredientsText.split(',').map(i => i.trim()),
-      recipe: recipeText,
+      vehicle: vehicleText,
       region: '', // Puedes asignar una región por defecto o dejarla vacía
     };
-    addRecipe(newRecipe);
+    addVehicle(newVehicle);
     Alert.alert('Éxito', 'Receta creada');
     navigation.navigate('Inicio');
   };
@@ -37,40 +37,35 @@ export default function CreateRecipeScreen({ navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Nombre de la receta"
-        placeholderTextColor="#7D4C00"
         value={name}
         onChangeText={setName}
       />
       <TextInput
         style={styles.input}
         placeholder="Descripción breve"
-        placeholderTextColor="#7D4C00"
         value={description}
         onChangeText={setDescription}
       />
       <TextInput
         style={styles.input}
         placeholder="URL de la imagen"
-        placeholderTextColor="#7D4C00"
         value={image}
         onChangeText={setImage}
       />
       <TextInput
         style={styles.input}
         placeholder="Ingredientes (separados por coma)"
-        placeholderTextColor="#7D4C00"
         value={ingredientsText}
         onChangeText={setIngredientsText}
       />
       <TextInput
         style={[styles.input, { height: 100 }]}
         placeholder="Preparación / Receta"
-        placeholderTextColor="#7D4C00"
-        value={recipeText}
-        onChangeText={setRecipeText}
+        value={vehicleText}
+        onChangeText={setVehicleText}
         multiline
       />
-      <TouchableOpacity style={styles.button} onPress={handleCreateRecipe}>
+      <TouchableOpacity style={styles.button} onPress={handleCreateVehicle}>
         <Text style={styles.buttonText}>Crear Receta</Text>
       </TouchableOpacity>
     </ScrollView>

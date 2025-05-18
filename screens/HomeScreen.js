@@ -5,11 +5,13 @@ import { AppContext } from '../contexts/AppContext';
 import styles from '../styles/styles';
 
 export default function HomeScreen({ navigation }) {
-  const { vehicles, openProfileModal } = useContext(AppContext);
+  const { vehicles, openProfileModal, comments } = useContext(AppContext);
   const [filter, setFilter] = useState('');
-  const filteredVehicles  = vehicles.filter(vehicle =>
+  const filteredVehicles = vehicles.filter(vehicle =>
     vehicle.name.toLowerCase().includes(filter.toLowerCase())
   );
+
+  console.log(comments);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,21 +38,35 @@ export default function HomeScreen({ navigation }) {
       />
       {/* Usamos estilos adaptados a la nueva temática: vehicleGrid y vehicleCard */}
       <View style={styles.vehicleGrid}>
-        {filteredVehicles.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            style={styles.vehicleCard}
-            // Navegamos a la pantalla de detalles del vehículo (VehicleScreen)
-            onPress={() => navigation.navigate('VehicleDetails', { item })}
-          >
-            <Image source={{ uri: item.image }} style={styles.cardImage} resizeMode="cover" />
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{item.name}</Text>
-              {/* Mostramos, por ejemplo, el año o algún detalle relevante */}
-              <Text style={styles.cardDetail}>Año: {item.year}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+        {filteredVehicles.map((item) => {
+          const vehicleComments = comments[item.id] || [];
+          const averageRating = vehicleComments.length
+            ? vehicleComments.reduce((sum, c) => sum + c.rating, 0) / vehicleComments.length
+            : 0;
+
+          return (
+            <TouchableOpacity
+              key={item.id}
+              style={styles.vehicleCard}
+              onPress={() => navigation.navigate('VehicleDetails', { item })}
+            >
+              <Image source={{ uri: item.image }} style={styles.cardImage} resizeMode="cover" />
+              <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{item.name}</Text>
+                <Text style={styles.cardDetail}>Año: {item.year}</Text>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                  <Text style={{ color: '#f1c40f', fontSize: 16 }}>
+                    {'★'.repeat(Math.round(averageRating)) + '☆'.repeat(5 - Math.round(averageRating))}
+                  </Text>
+                  <Text style={{ marginLeft: 8, fontSize: 12 }}>
+                    {vehicleComments.length} comentarios
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </ScrollView>
   );

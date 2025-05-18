@@ -5,7 +5,7 @@ export default StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#F5F6F7', 
+    backgroundColor: '#F5F6F7',
     padding: 10,
   },
   title: {
@@ -13,7 +13,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
-    color: '#0D1B2A', 
+    color: '#0D1B2A',
   },
   vehicleGrid: {
     flexDirection: 'row',
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     overflow: 'hidden',
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
@@ -221,5 +221,24 @@ export default StyleSheet.create({
     fontSize: 12,
     color: '#888',
     marginTop: 5,
+  },
+  commentRating: {
+    fontSize: 16,
+    color: '#f1c40f',
+    marginBottom: 4
+  },
+  ratingStars: {
+    color: '#f1c40f',
+    fontSize: 16
+  },
+  ratingText: {
+    marginLeft: 8,
+    fontSize: 12
+  },
+  mapContainer: {
+    height: 200,
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginTop: 20
   },
 });

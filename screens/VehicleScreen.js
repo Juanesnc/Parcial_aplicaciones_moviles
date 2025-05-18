@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { ScrollView, Text, TouchableOpacity, View, Image } from 'react-native';
 import { AppContext } from '../contexts/AppContext';
 import styles from '../styles/styles';
+import SimpleMap from '../components/SimpleMap';
 
 export default function VehicleScreen({ route, navigation }) {
   const { item } = route.params;  // El vehículo seleccionado
@@ -10,12 +11,16 @@ export default function VehicleScreen({ route, navigation }) {
     favorites,
     addFavorite,
     removeFavorite,
-    planner,
-    addToPlanner,
-    removeFromPlanner
+    comments
   } = useContext(AppContext);
   const isFavorite = favorites.find(fav => fav?.id === item.id);
-  const inPlanner = planner.find(plan => plan.id === item.id);
+
+  const vehicleComments = comments[item.id] || [];
+  const averageRating = vehicleComments.length
+    ? vehicleComments.reduce((sum, c) => sum + c.rating, 0) / vehicleComments.length
+    : 0;
+
+    console.log(item)
 
   const handleToggleFavorite = () => {
     if (isFavorite) {
@@ -25,19 +30,17 @@ export default function VehicleScreen({ route, navigation }) {
     }
   };
 
-  const handleTogglePlanner = () => {
-    if (inPlanner) {
-      removeFromPlanner(item);
-    } else {
-      addToPlanner(item);
-    }
-  };
-
   return (
     <ScrollView style={styles.vehicleDetailsContainer}>
       <Image source={{ uri: item.image }} style={styles.featuredImage} resizeMode="contain" />
       <View style={styles.detailsContent}>
         <Text style={styles.detailsTitle}>{item.name}</Text>
+        <Text style={{ color: '#f1c40f', fontSize: 16 }}>
+          {'★'.repeat(Math.round(averageRating)) + '☆'.repeat(5 - Math.round(averageRating))}
+        </Text>
+        <Text style={{ marginLeft: 8, fontSize: 12 }}>
+          {vehicleComments.length} comentarios
+        </Text>
         {/* En lugar de "Hecho en {item.region}", mostramos quizás el año o motor */}
         <Text style={styles.detailsText}>Año: {item.year}</Text>
         <Text style={styles.detailsText}>Descripción: {item.description}</Text>
@@ -56,15 +59,19 @@ export default function VehicleScreen({ route, navigation }) {
           <Text style={styles.sectionTitle}>Detalles Adicionales:</Text>
           <Text style={styles.detailsText}>{item.details}</Text>
         </View>
+        {item.branchLocation && (
+          <SimpleMap
+            latitude={item.branchLocation.latitude}
+            longitude={item.branchLocation.longitude}
+            title={item.branchLocation.title}
+          />
+        )}
         <View style={styles.buttonGroup}>
           <TouchableOpacity style={styles.buttonComentarios} onPress={handleToggleFavorite}>
             <Text style={styles.buttonComentariosText}>
               {isFavorite ? 'Quitar Favorito' : 'Agregar Favorito'}
             </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.smallButton} onPress={handleTogglePlanner}>
-            <Text style={styles.buttonText}>{inPlanner ? 'Quitar del Plan' : 'Agregar al Plan'}</Text>
-          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.buttonComentarios}
             onPress={() =>

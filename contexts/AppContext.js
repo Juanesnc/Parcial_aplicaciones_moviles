@@ -37,12 +37,13 @@ export function AppProvider({ children }) {
 
       // Establecer el estado del usuario incluyendo el username
       setUser({ ...userData, username });
+      loadAllComments();
 
     } catch (error) {
       Toast.show({
         type: 'error',
         text1: 'Error',
-        text2: 'Error al registrar el usuario: '+ error.message
+        text2: 'Error al registrar el usuario: ' + error.message
       });
     }
   };
@@ -63,6 +64,7 @@ export function AppProvider({ children }) {
 
       fetchVehiclesFromDB((firebaseVehicles) => {
         setVehicles(firebaseVehicles);
+        loadAllComments();
       });
       loadFavorites(userData.uid);
     } catch (error) {
@@ -93,7 +95,7 @@ export function AppProvider({ children }) {
     await set(favRef, vehicle);
     setFavorites((prev) => [...prev, vehicle]);
   };
-  
+
   const removeFavorite = async (vehicle) => {
     if (!user) return;
     const favRef = ref(db, `favorites/${user.uid}/${vehicle.id}`);
@@ -101,11 +103,11 @@ export function AppProvider({ children }) {
     setFavorites((prev) => prev.filter((fav) => fav.id !== vehicle.id));
   };
 
-  const loadFavorites = async(uid) => {
+  const loadFavorites = async (uid) => {
     if (!uid) return;
     const favRef = await get(ref(db, 'favorites/' + uid));
     const favList = favRef.val();
-    if(favList){
+    if (favList) {
       setFavorites(favList);
     }
   };
@@ -118,6 +120,7 @@ export function AppProvider({ children }) {
     const comment = {
       text: commentText.text,
       username: user?.username || 'Anónimo',
+      rating: commentText.rating,
       timestamp: Date.now()
     };
 
@@ -136,6 +139,28 @@ export function AppProvider({ children }) {
         [vehicleId]: fetchedComments,
       }));
     });
+  };
+
+  const loadAllComments = async () => {
+    try {
+      const snapshot = await get(ref(db, 'comments'));
+      const data = snapshot.val();
+
+      if (data) {
+        const formattedComments = {};
+
+        Object.entries(data).forEach(([vehicleId, commentGroup]) => {
+          formattedComments[vehicleId] = Object.entries(commentGroup).map(([commentId, commentData]) => ({
+            id: commentId,
+            ...commentData,
+          }));
+        });
+
+        setComments(formattedComments);
+      }
+    } catch (error) {
+      console.error("Error al cargar todos los comentarios:", error);
+    }
   };
 
   const addVehicle = (newVehicle) => setVehicles([...vehicles, newVehicle]);
